@@ -1,0 +1,6 @@
+module.exports = {
+    command: "ping",
+    execute: async (bot, msg, args) => {
+        msg.channel.createMessage("My Ping is: 23.66666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666663")
+    }
+}
