@@ -25,20 +25,52 @@ bot.on("ready", () => {
 bot.on("guildMemberUpdate", (guild, member, oldMember) => {
     if(member.nick) {
         if(member.nick.toLowerCase().codePointAt(0) < "a".codePointAt(0)) {
-            member.edit({ nick: "No Hoisting" })
+            let nickname = member.nick.split("")
+            if(member.nick.length < 32) {
+                nickname.unshift("𛲢")
+                member.edit({ nick: nickname.join("") })
+            } else {
+                nickname.splice(30, 2)
+                nickname.unshift("𛲢")
+                member.edit({ nick: nickname.join("") })
+            }
         }
     } else if(member.username.toLowerCase().codePointAt(0) < "a".codePointAt(0) && !member.nick) {
-        member.edit({ nick: "No Hoisting" })
+        let nickname = member.username.split("")
+        if(member.username.length < 32) {
+            nickname.unshift("𛲢")
+            member.edit({ nick: nickname.join("") })
+        } else {
+            nickname.splice(30, 2)
+            nickname.unshift("𛲢")
+            member.edit({ nick: nickname.join("") })
+        }
     }
 })
 
 bot.on("guildMemberAdd", (guild, member) => {
     if(member.nick) {
         if(member.nick.toLowerCase().codePointAt(0) < "a".codePointAt(0)) {
-            member.edit({ nick: "No Hoisting" })
+            let nickname = member.nick.split("")
+            if(member.nick.length < 32) {
+                nickname.unshift("𛲢")
+                member.edit({ nick: nickname.join("") })
+            } else {
+                nickname.splice(30, 2)
+                nickname.unshift("𛲢")
+                member.edit({ nick: nickname.join("") })
+            }
         }
     } else if(member.username.toLowerCase().codePointAt(0) < "a".codePointAt(0) && !member.nick) {
-        member.edit({ nick: "No Hoisting" })
+        let nickname = member.username.split("")
+        if(member.username.length < 31) {
+            nickname.unshift("𛲢")
+            member.edit({ nick: nickname.join("") })
+        } else {
+            nickname.splice(30, 2)
+            nickname.unshift("𛲢")
+            member.edit({ nick: nickname.join("") })
+        }
     }
 })
 

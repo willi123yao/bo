@@ -14,9 +14,17 @@ module.exports = {
         let interval = 1100
         let promise = Promise.resolve()
         msg.channel.createMessage("Now dehoisting")
-        hoisters.forEach(m => {
+        hoisters.forEach(member => {
             promise = promise.then(() => {
-                m.edit({ nick: "No Hoisting" })
+                let nickname = member.username.split("")
+                if(member.username.length < 31) {
+                    nickname.unshift("𛲢")
+                    member.edit({ nick: nickname.join("") })
+                } else {
+                    nickname.splice(30, 2)
+                    nickname.unshift("𛲢")
+                    member.edit({ nick: nickname.join("") })
+                }
                 return new Promise(resolve => {
                     setTimeout(resolve, interval)
                 });
