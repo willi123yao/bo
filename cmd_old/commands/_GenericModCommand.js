@@ -1,5 +1,5 @@
-module.exports = (action, method) => async function GenericModCommand (msg, args) {
-  const reason = args.slice(1).join(' ') || 'No reason provided.';
+module.exports = ([ action, actionPT ], props) => async function GenericModCommand (msg, args) {
+  const reason = args.slice(1).join(' ') || 'No reason provided or reason is to be set.';
   const mod = `${msg.author.username}#${msg.author.discriminator}`;
 
   const performAction = async (id) => {
@@ -10,21 +10,18 @@ module.exports = (action, method) => async function GenericModCommand (msg, args
       return 'Are you dumb?';
     }
 
-    if (!action.startsWith('un')) {
-      await this.dm(id, action, mod, reason)
-        .catch(e => {
-          if (!e.message.includes('50007')) { // can't DM because blocked or doesn't have DMs open
-            throw e;
-          }
-        });
-    }
+    await this.dm([ action, actionPT ], user.id, mod, reason)
+      .catch(e => {
+        if (!e.message.includes('50007')) { // can't DM because blocked or doesn't have DMs open
+          throw e;
+        }
+      });
 
-    return method.call(this, msg.channel.guild, id, reason)
-      .then(() => '☑')
+    return props.method.call(this, msg.channel.guild, user, reason)
       .catch(e => {
         if (typeof e === 'string') {
           return e;
-        } else if (e.message.includes('403 FORBIDDEN')) {
+        } else if (e.message && e.message.includes('403 FORBIDDEN')) {
           return `I can't ${action} this person. :(`;
         } else {
           throw e;

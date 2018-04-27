@@ -40,10 +40,10 @@ class Bot extends Client {
   }
 
   async loadCommand (commandName) {
-    this.commands.set(
-      commandName.split('.')[0].toLowerCase(),
-      require(`${__dirname}/commands/${commandName}`)
-    );
+    const Command = new (require(`${__dirname}/commands/${commandName}`))();
+    for (const trigger of Command.props.triggers) {
+      this.commands.set(trigger, Command);
+    }
   }
 
   loadCommands () {
@@ -64,18 +64,18 @@ class Bot extends Client {
   }
 
   // Various miscellaneous methods used throughout the bot are all just thrown in here
-  async dm (user, action, mod, reason) {
-    const DMChannel = await this.getDMChannel(user);
-    const [ pastTense, color ] = ({
-      ban: [ 'banned', 0xFF0000 ],
-      kick: [ 'kicked', 0xFFFF00 ],
-      mute: [ 'muted', 0xFFFF00 ],
-      shitpostMute: [ 'shitpost muted', 0xFFFF00 ]
+  async dm ([ action, actionPT ], userID, mod, reason) {
+    const DMChannel = await this.getDMChannel(userID);
+    const color = ({
+      ban: 0xFF0000,
+      kick: 0xFFFF00,
+      mute: 0xFFFF00,
+      shitpostMute: 0xFFFF00
     })[action];
 
     return DMChannel.createMessage({ embed: {
       color,
-      title: `You were ${pastTense} from Discord Bot List.`,
+      title: `You were ${actionPT} from Discord Bot List.`,
       fields: [
         { name: 'Moderator', value: mod },
         { name: 'Reason', value: reason }
