@@ -1,2 +1,2 @@
-# Mr. Avocado
-Helper Mod bot for discordbots.org
+# Bo  
+A moderation bot to help the Discord Bot List staff team.

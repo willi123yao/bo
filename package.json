@@ -1,21 +1,21 @@
 {
-  "name": "mr-avocado",
-  "version": "1.0.0",
-  "description": "a moderation bot for the discordbots.org discord server",
-  "main": "app.js",
+  "name": "bo",
+  "description": "Extensive moderation tools for Discord Bot List",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "lint": "./node_modules/.bin/eslint ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DiscordBotList/mr-avocado.git"
+    "url": "git+https://github.com/DiscordBotList/no.git"
   },
-  "author": "DiscordBotList Team",
+  "author": "Discord Bot List Team",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/DiscordBotList/mr-avocado/issues"
+    "url": "https://github.com/DiscordBotList/no/issues"
   },
-  "homepage": "https://github.com/DiscordBotList/mr-avocado#readme",
+  "homepage": "https://github.com/DiscordBotList/no#readme",
   "dependencies": {
     "eris": "^0.8.0"
   },

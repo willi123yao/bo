@@ -1,9 +1,9 @@
-console.log('Initializing Avocado spread sequence...');
+console.log('Booting...');
 
-const Avocado = require(`${__dirname}/src/Avocado.js`);
+const Bot = require(`${__dirname}/src/Bot.js`);
 const config = require(`${__dirname}/config.json`);
 
 // eslint-disable-next-line no-new
-new Avocado(config, {
+new Bot(config, {
   getAllUsers: true
 });

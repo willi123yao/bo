@@ -1,4 +1,8 @@
 module.exports = async function onMessageCreate (msg) {
+  if (msg.mentions.length > 8 && msg.channel.guild.id === '264445053596991498') {
+    msg.member.ban(0, 'Mass pinging');
+  }
+
   if (
     !msg.channel.guild ||
     msg.channel.guild.id !== this.config.serverID ||

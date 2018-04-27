@@ -4,7 +4,7 @@ const Endpoints = require('eris/lib/rest/Endpoints');
 
 const events = require(`${__dirname}/events`);
 
-class Avocado extends Client {
+class Bot extends Client {
   constructor (config, opts) {
     super(config.token, opts);
     this.config = config;
@@ -107,4 +107,4 @@ class Avocado extends Client {
   }
 }
 
-module.exports = Avocado;
+module.exports = Bot;
