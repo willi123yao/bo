@@ -30,7 +30,7 @@ module.exports = class HelpCommand {
 
   get props () {
     return {
-      triggers: ['help', 'h'],
+      triggers: ['help'],
       description: 'suk my duc natan',
       usage: '{command} [command]'
     }
