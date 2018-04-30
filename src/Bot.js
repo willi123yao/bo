@@ -54,11 +54,7 @@ class Bot extends Client {
           reject(err);
         }
 
-        commands
-          .filter(c => !c.startsWith('_'))
-          .map(this.loadCommand, this);
-
-        resolve();
+        resolve(commands.map(this.loadCommand, this));
       });
     });
   }
@@ -84,7 +80,7 @@ class Bot extends Client {
     }});
   }
 
-  async fetchUser (id) {
+  fetchUser (id) {
     if (this.users.has(id)) {
       return this.users.get(id);
     } else {
