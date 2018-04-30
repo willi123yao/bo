@@ -6,12 +6,15 @@ module.exports = class KickCommand extends GenericModCommand {
       action: ['kick', 'kicked'],
       dm: true,
       triggers: ['kick'],
-      usage: 'no',
-      description: 'no'
+      usage: 'no u',
+      description: 'hi'
     });
   }
 
-  run ({ guild, id, reason }) {
-    return guild.kickMember(id, reason).then(() => 'ok');
+  async run ({ guild, user: { username, discriminator, id }, reason }) {
+    return guild.kickMember(id, reason)
+      .then(() =>
+        `Successfully kicked \`${username}#${discriminator}\` (\`${id}\`) ${reason !== 'No reason specified' ? ` with reason \`${reason}\`.` : '.'}`
+      );
   }
 };

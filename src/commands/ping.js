@@ -1,11 +1,11 @@
 module.exports = class Ping {
-  async execute (msg, args) {
-    return `${msg.channel.guild.shard.latency}ms`;
+  async execute ({ msg: { channel: { guild: { shard } } } }) { // HOW FAR DO I GO
+    return `${shard.latency}ms`;
   }
 
   get props () {
     return {
-      triggers: ['ping', 'pong'],
+      triggers: ['ping'],
       usage: 'no',
       description: 'no'
     };
