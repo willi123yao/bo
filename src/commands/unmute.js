@@ -20,7 +20,7 @@ module.exports = class KickCommand extends GenericModCommand {
       return 'This user isn\'t muted.';
     }
 
-    return member.removeRole(config.mutedRole)
+    return member.removeRole(config.mutedRole, reason)
       .then(() =>
         `Successfully unmuted \`${username}#${discriminator}\` (\`${id}\`) ${reason !== 'No reason specified' ? ` with reason \`${reason}\`.` : '.'}`
       );
