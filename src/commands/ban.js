@@ -28,7 +28,7 @@ module.exports = class KickCommand extends GenericModCommand {
       ? `Are you dumb? (run with \`${this.OVERRIDE_ARG}\` if you actually need to ban a bot)`
       : guild.banMember(id, 7, reason)
         .then(() =>
-          `Successfully banned \`${username}#${discriminator}\` (\`${id}\`) ${reason !== 'No reason specified' ? ` with reason \`${reason}\`.` : '.'}`
+          `Successfully banned \`${username}#${discriminator}\` (\`${id}\`)${reason !== 'No reason specified' ? ` with reason \`${reason}\`.` : '.'}`
         );
   }
 };

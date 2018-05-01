@@ -22,7 +22,7 @@ module.exports = class KickCommand extends GenericModCommand {
 
     return member.addRole(config.mutedRole, reason)
       .then(() =>
-        `Successfully muted \`${username}#${discriminator}\` (\`${id}\`) ${reason !== 'No reason specified' ? ` with reason \`${reason}\`.` : '.'}`
+        `Successfully muted \`${username}#${discriminator}\` (\`${id}\`)${reason !== 'No reason specified' ? ` with reason \`${reason}\`.` : '.'}`
       );
   }
 };
