@@ -3,8 +3,19 @@ module.exports = async function onMessageCreate (msg) {
     return;
   }
 
-  if (msg.mentions.length > 8 && msg.channel.guild.id === '264445053596991498') {
+  if (msg.mentions.length > 8) {
     msg.member.ban(0, 'Mass pinging');
+  }
+
+  if (
+    msg.author.bot ||
+    !msg.member.roles.includes(this.config.modRole)
+  ) {
+    return;
+  }
+
+  if (msg.content === 'hey mod bot how u doin') { // fuck you, 440617663446777856
+    return msg.channel.createMessage(`am doin great ${msg.author.username.toLowerCase()}, hbu`);
   }
 
   const mentionPrefix = msg.content.match(new RegExp(`^<@!*${this.user.id}>`));
@@ -12,13 +23,7 @@ module.exports = async function onMessageCreate (msg) {
     ? mentionPrefix[0]
     : this.config.prefix;
 
-  if (
-    msg.author.bot ||
-    !msg.member.roles.includes(this.config.modRole) ||
-    !msg.content.startsWith(prefix)
-  ) {
-    return;
-  }
+  if (!msg.content.startsWith(prefix)) return;
 
   const [ command, ...args ] = msg.content.slice(prefix.length).trim().split(/ +/g);
   if (this.commands.has(command.toLowerCase())) {
