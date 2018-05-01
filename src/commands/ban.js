@@ -23,9 +23,9 @@ module.exports = class KickCommand extends GenericModCommand {
     return args;
   }
 
-  async run ({ guild, user: { username, discriminator, id, bot }, reason }) {
-    return bot && !this.override
-      ? `Are you dumb? (run with \`${this.OVERRIDE_ARG}\` if you actually need to ban a bot)`
+  async run ({ guild, user: { username, discriminator, id, bot }, reason, sudo }) {
+    return bot && !sudo
+      ? `Are you dumb? (run with \`sudo\` if you actually need to ban a bot)`
       : guild.banMember(id, 7, reason)
         .then(() =>
           `Successfully banned \`${username}#${discriminator}\` (\`${id}\`)${reason !== 'No reason specified' ? ` with reason \`${reason}\`.` : '.'}`

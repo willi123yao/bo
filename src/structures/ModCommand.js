@@ -22,7 +22,7 @@ module.exports = class Command {
         });
     }
 
-    return this.run({ guild: msg.channel.guild, user, reason, client })
+    return this.run({ guild: msg.channel.guild, sudo: msg.sudo, user, reason, client })
       .catch(e => {
         if (e.message.includes('403 FORBIDDEN')) {
           return `I can't ${action} this person. :(`;

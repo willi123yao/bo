@@ -18,6 +18,11 @@ module.exports = async function onMessageCreate (msg) {
     return msg.channel.createMessage(`am doin great ${msg.author.username.toLowerCase()}, hbu`);
   }
 
+  if (msg.content.startsWith('sudo ')) { // fuck you, 182245310024777728
+    msg.content = msg.content.substring('sudo '.length);
+    msg.sudo = true;
+  }
+
   const mentionPrefix = msg.content.match(new RegExp(`^<@!*${this.user.id}>`));
   const prefix = mentionPrefix
     ? mentionPrefix[0]
