@@ -94,6 +94,8 @@ class Bot extends Client {
   }
 
   async dehoist (hoister) {
+    return Promise.resolve('suh');
+
     const username = (hoister.nick || hoister.username).split('');
     username.unshift(String.fromCharCode(55343) + String.fromCharCode(56482));
     if (username.length > 31) {
