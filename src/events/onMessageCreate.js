@@ -1,4 +1,25 @@
 module.exports = async function onMessageCreate (msg) {
+  if (!msg.channel.guild) return;
+
+  if (
+    msg.channel.guild.id === this.config.dslID &&
+    msg.content.startsWith('.hackban') &&
+    msg.member.roles.includes(this.config.dslMods)
+  ) {
+    const [ , id ] = msg.content.split(/ +/g);
+    if (!id) {
+      return msg.channel.createMessage('give id ples');
+    }
+
+    if (!(/\d{17,19}/).test(id)) {
+      return msg.channel.createMessage('invalid id hoe');
+    }
+
+    msg.channel.guild.banMember(id, 7, `Hackbanned by ${msg.author.username}`)
+      .then(() => msg.channel.createMessage(':eye: :nose: :eye:\n     :lips:\n:ok_hand: :ok_hand: :weary: :weary:'))
+      .catch(e => msg.channel.createMessage(`:x: :weary: :x: :x: ${e.message}`));
+  }
+
   if (!msg.channel.guild || msg.channel.guild.id !== this.config.serverID) {
     return;
   }
