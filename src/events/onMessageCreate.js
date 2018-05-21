@@ -1,3 +1,5 @@
+const responses = require(`${__dirname}/../responses.json`);
+
 module.exports = async function onMessageCreate (msg) {
   if (!msg.channel.guild) return;
 
@@ -36,8 +38,10 @@ module.exports = async function onMessageCreate (msg) {
     return;
   }
 
-  if (msg.content === 'hey mod bot how u doin') { // fuck you, 440617663446777856
-    return msg.channel.createMessage(`am doin great ${msg.author.username.toLowerCase()}, hbu`);
+  for (const response in responses) {
+    if (msg.content.toLowerCase() === response) {
+      return msg.channel.createMessage(responses[response].replace(/\$USER/g, msg.author.username.toLowerCase()));
+    }
   }
 
   if (msg.content.startsWith('sudo ')) { // fuck you, 182245310024777728
