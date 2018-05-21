@@ -16,7 +16,7 @@ module.exports = class IncidentsCommand {
       return 'Specify an ID/mention or heck off, nerd';
     }
 
-    page--;
+    page--; // zero based indexing haha ok
 
     const res = await client.db.collection('incidents').find({ id: argument }).toArray();
     const pages = res
@@ -36,7 +36,9 @@ module.exports = class IncidentsCommand {
 
   get props () {
     return {
-      triggers: [ 'incidents', 'whyismybotmuted' ]
+      triggers: [ 'incidents', 'whyismybotmuted' ],
+      description: 'hello why is my bot muted???????????',
+      usage: '{command} <id/mention> [pageNumber (defaults to 1)]'
     };
   }
 };
