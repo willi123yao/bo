@@ -1,6 +1,11 @@
 module.exports = async function onMessageCreate (msg) {
   if (!msg.channel.guild) return;
 
+  if (msg.mentions.length > 8) {
+    msg.member.ban(0, 'Mass pinging');
+  }
+
+  // DSL hackbans
   if (
     msg.channel.guild.id === this.config.dslID &&
     msg.content.startsWith('.hackban') &&
@@ -24,10 +29,6 @@ module.exports = async function onMessageCreate (msg) {
     return;
   }
 
-  if (msg.mentions.length > 8) {
-    msg.member.ban(0, 'Mass pinging');
-  }
-
   if (
     msg.author.bot ||
     !msg.member.roles.includes(this.config.modRole)
@@ -47,7 +48,7 @@ module.exports = async function onMessageCreate (msg) {
   const mentionPrefix = msg.content.match(new RegExp(`^<@!*${this.user.id}>`));
   const prefix = mentionPrefix
     ? mentionPrefix[0]
-    : this.config.prefix;
+    : await this.getPrefix(msg.author.id);
 
   if (!msg.content.startsWith(prefix)) return;
 

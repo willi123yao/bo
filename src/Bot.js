@@ -3,6 +3,7 @@ const { readdir } = require('fs');
 const Endpoints = require('eris/lib/rest/Endpoints');
 
 const events = require(`${__dirname}/events`);
+const getDB  = require(`${__dirname}/db.js`);
 
 class Bot extends Client {
   constructor (config, opts) {
@@ -11,32 +12,16 @@ class Bot extends Client {
     this.init();
   }
 
-  init () {
+  async init () {
     this.connect();
     this.loadCommands();
-    if (this.config.dev) {
-      this.setupDev();
-    }
+    this.db = await getDB();
 
     this
       .on('ready', events.onReady)
       .on('messageCreate', events.onMessageCreate)
       .on('guildMemberUpdate', events.onGuildMember)
       .on('guildMemberAdd', events.onGuildMember);
-  }
-
-  async setupDev () {
-    const { watch } = require('chokidar');
-    const { sep } = require('path');
-
-    watch(`${__dirname}/commands/`, {
-      persistent: true
-    }).on('change', async (path) => {
-      delete require.cache[require.resolve(path)];
-      const name = path.split(sep).pop();
-      await this.loadCommand(name);
-      console.log(`Reloaded ${name}`);
-    });
   }
 
   async loadCommand (commandName) {
@@ -94,14 +79,32 @@ class Bot extends Client {
   }
 
   async dehoist (hoister) {
-    return Promise.resolve('suh');
-
     const username = (hoister.nick || hoister.username).split('');
+
     username.unshift(String.fromCharCode(55343) + String.fromCharCode(56482));
+
     if (username.length > 31) {
       username.splice(31 - username.length);
     }
+
     return hoister.edit({ nick: username.join('') });
+  }
+
+  async getPrefix (id) {
+    const res = await this.db.collection('prefixes').findOne({ id });
+
+    return res
+      ? res.prefix
+      : this.config.defaultPrefix;
+  }
+
+  async setPrefix (id, prefix) {
+    const existingPrefix = await this.db.collection('prefixes').findOne({ id });
+    if (existingPrefix) {
+      return this.db.collection('prefixes').updateOne({ id }, { $set: { prefix } });
+    } else {
+      return this.db.collection('prefixes').insertOne({ id, prefix });
+    }
   }
 }
 
