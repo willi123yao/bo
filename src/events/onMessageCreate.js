@@ -55,8 +55,11 @@ module.exports = async function onMessageCreate (msg) {
   const [ command, ...args ] = msg.content.slice(prefix.length).trim().split(/ +/g);
   if (this.commands.has(command.toLowerCase())) {
     try {
-      const res = await this.commands.get(command.toLowerCase()).execute({ client: this, msg, args });
+      let res = await this.commands.get(command.toLowerCase()).execute({ client: this, msg, args });
       if (res) {
+        if (res instanceof Object) {
+          res = { embed: { ...res, color: 0xCA2D36 } };
+        }
         msg.channel.createMessage(res);
       }
     } catch (e) {
