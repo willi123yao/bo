@@ -1,5 +1,3 @@
-const { get } = require('superagent');
-
 const ACTIONS = [
   'Deleted',
   'Kicked',
