@@ -29,7 +29,7 @@ module.exports = class IncidentsCommand {
 
     return {
       title: `Incidents for ${argument}`,
-      description: pages[0] ? pages.join('\n') : `No incidents found on this page. Feel free to expand the list.`,
+      description: pages[0] ? pages.join('\n\n') : `No incidents found on this page. Feel free to expand the list.`,
       footer: { text: `Page ${page + 1}/${Math.ceil(res.length / INCIDENTS_PER_PAGE)}` }
     };
   }
