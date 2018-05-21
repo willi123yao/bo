@@ -46,9 +46,14 @@ module.exports = async function onMessageCreate (msg) {
   }
 
   const mentionPrefix = msg.content.match(new RegExp(`^<@!*${this.user.id}>`));
-  const prefix = mentionPrefix
-    ? mentionPrefix[0]
-    : await this.getPrefix(msg.author.id);
+  let prefix;
+
+  if (mentionPrefix) {
+    prefix = mentionPrefix[0];
+    msg.mentions.shift();
+  } else {
+    prefix = await this.getPrefix(msg.author.id);
+  }
 
   if (!msg.content.startsWith(prefix)) return;
 
