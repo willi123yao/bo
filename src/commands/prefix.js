@@ -1,5 +1,6 @@
 module.exports = class PrefixCommand {
-  async execute ({ client, msg, args: [ prefix ] }) {
+  async execute ({ client, msg, args }) {
+    const prefix = args.join(' ');
     if (!prefix) {
       return `Your current prefix is \`${await client.getPrefix(msg.author.id)}\`.`;
     }
