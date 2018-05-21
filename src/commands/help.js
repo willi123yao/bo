@@ -4,7 +4,8 @@ module.exports = class HelpCommand {
     if (!commandName) {
       return {
         title: 'See a list of my commands below. Every mod command can take an ID, a tag or a mention.',
-        description: commands.map(g => g.props.triggers[0]).join(', ')
+        description: commands.map(g => g.props.triggers[0]).join(', '),
+        footer: { text: 'Run "help <commandName>" for more information on a specific command.' }
       };
     }
 
@@ -29,6 +30,6 @@ module.exports = class HelpCommand {
       triggers: ['help'],
       description: 'suk my duc natan',
       usage: '{command} [command]'
-    }
+    };
   }
 }
