@@ -4,7 +4,8 @@ const ACTIONS = [
   'Muted',
   'Declined',
   'Unmuted',
-  'Banned'
+  'Banned',
+  'Unbanned'
 ];
 
 const INCIDENTS_PER_PAGE = 5;
