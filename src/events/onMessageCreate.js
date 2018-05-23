@@ -54,7 +54,7 @@ module.exports = async function onMessageCreate (msg) {
     ? mentionPrefix[0]
     : await this.getPrefix(msg.author.id);
 
-  if ((/<@\d{17,19}>/).test(prefix)) {
+  if ((/<@!*\d{17,19}>/).test(prefix)) {
     msg.mentions.shift();
   }
 
