@@ -16,10 +16,21 @@ module.exports = class IncidentsCommand {
     if (!argument) {
       return 'Specify an ID/mention or heck off, nerd';
     }
+    if (isNaN(argument)) {
+      return 'First argument must be an ID / mention.';
+    }
 
     page--; // zero based indexing haha ok
 
-    const res = await client.db.collection('incidents').find({ id: argument }).toArray();
+    const res = await client.db.collection('incidents')
+      .find({ id: argument })
+      .sort({ t: -1 })
+      .toArray();
+
+    if (!res[0]) {
+      return `No incidents found for \`${argument}\`. Make sure you're querying by ID or mention.`;
+    }
+
     const pages = res
       .slice(page * INCIDENTS_PER_PAGE, (page * INCIDENTS_PER_PAGE) + INCIDENTS_PER_PAGE)
       .map(incident => [
@@ -31,7 +42,7 @@ module.exports = class IncidentsCommand {
     return {
       title: `Incidents for ${argument}`,
       description: pages[0] ? pages.join('\n\n') : `No incidents found on this page. Feel free to expand the list.`,
-      footer: { text: `Page ${page + 1}/${Math.ceil(res.length / INCIDENTS_PER_PAGE)}` }
+      footer: { text: `Page ${page + 1}/${Math.ceil(res.length / INCIDENTS_PER_PAGE)} (${res.length} incidents total)` }
     };
   }
 
