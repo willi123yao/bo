@@ -55,6 +55,10 @@ module.exports = async function getDB () {
           $lt: Date.now()
         }
       }).toArray();
+    },
+
+    deleteExpiredTimedAction (_id) {
+      return timedActions.removeOne({ _id });
     }
   };
 };
