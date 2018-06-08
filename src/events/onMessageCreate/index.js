@@ -10,7 +10,7 @@ module.exports = async function onMessageCreate (msg) {
   if (
     msg.channel.guild.id !== this.config.serverID ||
     msg.author.bot ||
-    !msg.member.permissions.has('banMembers')
+    !msg.member.permission.has('banMembers')
   ) {
     return;
   }
