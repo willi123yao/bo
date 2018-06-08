@@ -17,7 +17,7 @@ module.exports = async function getDB () {
   // every single db method used in the whole project is below
   // todo: split tables into files
   return {
-    async getPrefix (id) {
+    getPrefix: async (id) => { // arrow because we need `this`
       const res = await prefixes.findOne({ id });
 
       return res
