@@ -1,6 +1,15 @@
 // moderatorID, expiryDate, userID, action
 const { parseTime } = require(`${__dirname}/../../../utils`);
 const argumentRX = /^-r(?:eason)* +(\d+) *([^]+?) *\| *`?([^]+?)`?$/;
+const ACTIONS = [
+  'Deleted',
+  'Kicked',
+  'Muted',
+  'Declined',
+  'Unmuted',
+  'Banned',
+  'Unbanned'
+];
 
 module.exports = async function timedActions (msg) {
   if (msg.channel.id !== this.config.modlogID) return;
@@ -26,5 +35,5 @@ module.exports = async function timedActions (msg) {
     caseNumber
   });
 
-  DMChannel.createMessage(`Successfully scheduled to un${incident.a.toLowerCase().slice(0, -1)} <@${incident.id}> at ${new Date(parsedTime).toLocaleString()}.`);
+  DMChannel.createMessage(`Successfully scheduled to un${ACTIONS[incident.a].toLowerCase().slice(0, -1)} <@${incident.id}> at ${new Date(parsedTime).toLocaleString()}.`);
 };
