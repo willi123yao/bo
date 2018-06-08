@@ -19,7 +19,7 @@ module.exports = class HelpCommand {
       title: `Help for command: ${props.triggers[0]}`,
       fields: [
         { name: 'Description', value: props.description },
-        { name: 'Usage', value: '```\n' + props.usage.replace('{command}', await client.getPrefix(msg.author.id) + props.triggers[0]) + '```\n' },
+        { name: 'Usage', value: '```\n' + props.usage.replace('{command}', await client.db.getPrefix(msg.author.id) + props.triggers[0]) + '```\n' },
         { name: 'Aliases', value: props.triggers[1] ? props.triggers.slice(1).join(', ') : 'None' }
       ]
     };
