@@ -77,35 +77,6 @@ class Bot extends Client {
         });
     }
   }
-
-  async dehoist (hoister) {
-    const username = (hoister.nick || hoister.username).split('');
-
-    username.unshift(String.fromCharCode(55343) + String.fromCharCode(56482));
-
-    if (username.length > 31) {
-      username.splice(31 - username.length);
-    }
-
-    return hoister.edit({ nick: username.join('') });
-  }
-
-  async getPrefix (id) {
-    const res = await this.db.collection('prefixes').findOne({ id });
-
-    return res
-      ? res.prefix
-      : this.config.defaultPrefix;
-  }
-
-  async setPrefix (id, prefix) {
-    const existingPrefix = await this.db.collection('prefixes').findOne({ id });
-    if (existingPrefix) {
-      return this.db.collection('prefixes').updateOne({ id }, { $set: { prefix } });
-    } else {
-      return this.db.collection('prefixes').insertOne({ id, prefix });
-    }
-  }
 }
 
 module.exports = Bot;
