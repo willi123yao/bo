@@ -3,6 +3,8 @@ const { parseTime } = require(`${__dirname}/../../../utils`);
 const argumentRX = /^-r(?:eason)* +(\d+) *([^]+?) *\| *`?([^]+?)`?$/;
 
 module.exports = async function timedActions (msg) {
+  if (msg.channel.id !== this.config.modlogID) return;
+
   const match = msg.content.match(argumentRX);
   if (!match) return;
 
