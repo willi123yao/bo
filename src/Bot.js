@@ -15,10 +15,11 @@ class Bot extends Client {
   async init () {
     this.connect();
     this.loadCommands();
-    this.db = await getDB();
+    this.db = await getDB.call(this);
 
     this
       .on('ready', events.onReady)
+      .once('ready', events.onceReady)
       .on('messageCreate', events.onMessageCreate)
       .on('guildMemberUpdate', events.onGuildMember)
       .on('guildMemberAdd', events.onGuildMember);
