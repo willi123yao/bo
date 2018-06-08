@@ -22,10 +22,7 @@ module.exports = class IncidentsCommand {
 
     page--; // zero based indexing haha ok
 
-    const res = await client.db.collection('incidents')
-      .find({ id: argument })
-      .sort({ t: -1 })
-      .toArray();
+    const res = await client.db.getIncidentsByID(argument);
 
     if (!res[0]) {
       return `No incidents found for \`${argument}\`. Make sure you're querying by ID or mention.`;
