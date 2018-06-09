@@ -27,6 +27,7 @@ module.exports = class Command {
 
       if (
         msg.author.id !== guild.ownerID &&
+        targetHighestRole && authorHighestRole &&
         authorHighestRole.position <= targetHighestRole.position
       ) {
         return 'This person is higher (or equal) in the hierarchy compared to you.';
