@@ -14,7 +14,7 @@ module.exports = class DehoistCommand {
 
     channel.createMessage(`Dehoisting ${hoisters.length} users.`);
     for (const hoister of hoisters) {
-      hoister.edit({ nick: 'bad hoister' })
+      hoister.edit({ nick: 'hoister no hoisting' })
         .catch(e =>
           channel.createMessage(`Failed to dehoist ${hoister.username} (\`${hoister.id}\`): ${e.message}`)
         );
