@@ -3,6 +3,12 @@ module.exports = class Command {
     this.props = props;
   }
 
+  getHighestRole (member, guild) {
+    return member.roles
+      .map(id => guild.roles.get(id))
+      .sort((a, b) => b.position - a.position)[0];
+  }
+
   async performAction ({ client, msg }, id, reason) {
     reason = reason || 'No reason specified';
     const { action: [ action, actionPT ], dm } = this.props;
@@ -11,6 +17,20 @@ module.exports = class Command {
     const user = await client.fetchUser(id);
     if (!user) {
       return 'User not found.';
+    }
+
+    const guild = client.guilds.get(client.config.serverID);
+    const member = guild.members.get(user.id);
+    if (member) { // this might not exist in the case of a hackban
+      const targetHighestRole = this.getHighestRole(member, guild);
+      const authorHighestRole = this.getHighestRole(msg.member, guild);
+
+      if (
+        msg.author.id !== guild.ownerID &&
+        authorHighestRole.position <= targetHighestRole.position
+      ) {
+        return 'This person is higher (or equal) in the hierarchy compared to you.';
+      }
     }
 
     if (dm) {
