@@ -7,7 +7,8 @@ module.exports = async function commandHandler (msg) {
   if ((/<@!?\d{17,19}>/).test(prefix)) {
     // note: this could be a simple check for `mentionPrefix`
     // but then there's people like this https://why-are-you-buying-clothes-at.the-soup.store/8b6801.png
-    msg.mentions.shift();
+
+    msg.mentions = msg.mentions.filter(u => !prefix.includes(u.id));
   }
 
   if (!msg.content.startsWith(prefix)) return;
