@@ -6,8 +6,8 @@ module.exports = class KickCommand extends GenericModCommand {
       action: ['ban', 'banned'],
       dm: true,
       triggers: ['ban'],
-      usage: 'no uuu',
-      description: 'hiiii'
+      usage: '{command} <@user> [reason]',
+      description: 'Bans the mentioned user'
     });
 
     this.OVERRIDE_ARG = '--im-dumb';

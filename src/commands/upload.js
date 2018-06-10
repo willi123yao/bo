@@ -33,8 +33,8 @@ module.exports = class UploadCommand {
   get props () {
     return {
       triggers: ['upload'],
-      usage: 'no',
-      description: 'stop that'
+      usage: '{command}',
+      description: 'Uploads your image to boisbetterthanluca.xyz'
     };
   }
 };

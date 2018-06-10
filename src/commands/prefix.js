@@ -11,7 +11,9 @@ module.exports = class PrefixCommand {
 
   get props () {
     return {
-      triggers: [ 'prefix', 'setprefix' ]
+      triggers: [ 'prefix', 'setprefix' ],
+      usage: '{command} [new prefix]',
+      description: 'Lets you have your own prefix for Bo'
     };
   }
 };

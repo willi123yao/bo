@@ -6,8 +6,8 @@ module.exports = class Ping {
   get props () {
     return {
       triggers: ['ping'],
-      usage: 'no',
-      description: 'no'
+      usage: '{command}',
+      description: 'Pong'
     };
   }
 };

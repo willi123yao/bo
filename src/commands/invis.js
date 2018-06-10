@@ -7,8 +7,8 @@ module.exports = class InvisCommand {
   get props () {
     return {
       triggers: ['invis', 'hide'],
-      usage: 'no uuuxcvasdf',
-      description: 'hiiiierwer3'
+      usage: '{command}',
+      description: 'Hides Bo if DAPI decides to give Bo the online status'
     };
   }
 };
