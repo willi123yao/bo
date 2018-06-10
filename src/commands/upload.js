@@ -3,12 +3,21 @@ const { get } = require('snekfetch');
 const { createWriteStream } = require('fs');
 
 module.exports = class UploadCommand {
-  async execute ({ msg }) {
-    const [ attachment ] = msg.attachments;
+  async execute ({ client, msg, args: [ id ] }) {
+    let [ attachment ] = msg.attachments;
+    if (!attachment) {
+      if (id) {
+        msg = await client.getMessage(msg.channel.id, id);
+        if (msg) {
+          attachment = msg.attachments;
+        }
+      }
+    }
+	
     if (!attachment) {
       return 'Attach an image.';
     }
-
+	
     if (attachment.size > 8e6) { // 8 MB
       return 'Image is too big.';
     }
